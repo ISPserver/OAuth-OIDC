@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+  mysql:
+    image: mysql:8.0.28
+    platform: linux/amd64
+    container_name: ezul-auth-service-mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+      - --ft_min_word_len=1
+    restart: always
+    ports:
+      - 3313:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_USER: authservice
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: authservice
+      TZ: Asia/Seoul
+  redis:
+    image: redis:6.0.5
+    command: redis-server --requirepass 1234 --port 6379
+    ports:
+      - 6380:6379
+    restart: always

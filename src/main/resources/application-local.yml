@@ -1,0 +1,80 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3313/authservice
+    username: authservice
+    password: 1234
+  sql:
+    init:
+      platform: mysql-local
+      mode: always
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+        generate_statistics: true
+#
+#springdoc:
+#  version: v1
+#  packages-to-scan: com.example.ezul
+#  default-consumes-media-type: application/json
+#  default-produces-media-type: application/json
+#  swagger-ui:
+#    tags-sorter: alpha
+#    operations-sorter: alpha
+#    enabled: true
+#    doc-expansion: none
+#  api-docs:
+#    path: /api-docs/json
+#    groups:
+#      enabled: true
+#  cache:
+#    disabled: true
+
+jwt:
+  secret-key: JxJ23gTz9fY2KZxLgR5NQmXvY8V5a2PfXJ7V6qM9N2sa
+
+logging:
+  file:
+    name: /Users/logs/ezul-auth/app.log
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss.SSSz,Asia/Seoul
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(%5level) %cyan(%logger) - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %5level %logger - %msg%n"
+  level:
+    root: info
+    org:
+      hibernate:
+        engine:
+          internal:
+            StatisticalLoggingSessionEventListener: off
+  logback:
+    rollingpolicy:
+      max-history: 7
+      file-name-pattern: /Users/logs/ezul-auth/app_%d{yyyy-MM-dd}_%i.log
+
+auth:
+  naver:
+    grant_type: authorization_code
+    client_id: asdf
+    client_secret: asdf
+  google:
+    client-id: your-real-client-id.apps.googleusercontent.com
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+security:
+  internal-auth-token: JxJ23gTz9fY2KZxLgR5NQmXvY8V5a2PfXJ7V6qM9N2sa

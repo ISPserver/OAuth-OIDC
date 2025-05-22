@@ -1,12 +1,11 @@
-oauth:
-  apple:
-    public-key-url: https://appleid.apple.com/auth/keys
-  kakao:
-    public-key-info: https://kauth.kakao.com/.well-known/jwks.json
-
-feign:
-  client:
-    config:
-      default:
-        connectTimeout: 5000
-        readTimeout: 5000
+spring:
+  application:
+    name: auth-service
+  profiles:
+    active: local
+  jpa:
+    properties:
+      query:
+        in_clause_parameter_padding: true
+        plan_cache_max_size: 1024
+        plan_parameter_metadata_max_size: 64
