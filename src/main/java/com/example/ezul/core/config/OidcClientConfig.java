@@ -19,7 +19,7 @@ public class OidcClientConfig {
 
     @Bean
     public Logger.Level feignLoggerLevel() {
-        return Logger.Level.BASIC;
+        return Logger.Level.FULL;
     }
 
     @Bean

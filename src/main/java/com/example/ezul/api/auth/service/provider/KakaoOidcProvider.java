@@ -18,7 +18,7 @@ import java.util.Map;
 @Component("kakao")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class KakaoOidcProvider implements OAuthProvider<OidcProviderParams> {
+public class KakaoOidcProvider implements OidcProvider {
 
     KakaoOidcClient kakaoOidcClient;
     CacheManager cacheManager;
@@ -37,7 +37,7 @@ public class KakaoOidcProvider implements OAuthProvider<OidcProviderParams> {
         } catch (RuntimeException e) {
 //        } catch (SignatureException | InvalidKeyException e) {
             Cache cache = cacheManager.getCache("KakaoOICD");
-            if (cache != null) cache.evict("getKakaoPublicKeys");
+            if (cache != null) cache.evict("publicKeys");
 
             OidcPublicKeyList newKeys = kakaoOidcClient.getKakaoPublicKeys();
             PublicKey newKey = publicKeyProvider.generatePublicKey(headers, newKeys);

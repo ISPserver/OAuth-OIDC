@@ -18,7 +18,7 @@ import java.util.Map;
 @Component("apple")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class AppleOidcProvider implements OAuthProvider<OidcProviderParams> {
+public class AppleOidcProvider implements OidcProvider {
 
     AppleOidcClient appleOidcClient;
     CacheManager cacheManager;

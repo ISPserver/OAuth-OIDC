@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 )
 public interface KakaoOidcClient {
 
-    @Cacheable(cacheNames = "KakaoOICD", cacheManager = "oidcCacheManager")
+    @Cacheable(cacheNames = "KakaoOICD", key = "'publicKeys'", cacheManager = "oidcCacheManager")
     @GetMapping("/.well-known/jwks.json")
     OidcPublicKeyList getKakaoPublicKeys();
 }

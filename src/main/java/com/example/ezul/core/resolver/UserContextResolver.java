@@ -1,6 +1,7 @@
 package com.example.ezul.core.resolver;
 
 import com.example.ezul.api.auth.model.domain.UserContext;
+import io.micrometer.common.lang.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -9,7 +10,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import javax.annotation.Nullable;
 
 @Component
 public class UserContextResolver implements HandlerMethodArgumentResolver {

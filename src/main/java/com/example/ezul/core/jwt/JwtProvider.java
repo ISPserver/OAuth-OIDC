@@ -3,6 +3,7 @@ package com.example.ezul.core.jwt;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.IOException;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,8 @@ public class JwtProvider {
                     .getBody();
         } catch (SecurityException | io.jsonwebtoken.MalformedJwtException e) {
             throw new RuntimeException("ReturnCode.UNAUTHORIZED, Invalid JWT token, e");
+        } catch (ExpiredJwtException e) {
+            throw new RuntimeException("ReturnCode.UNAUTHORIZED, JWT token expired, e");
         } catch (Exception e) {
             throw new RuntimeException("ReturnCode.INTERNAL_SERVER_ERROR, JWT parsing failed, e");
         }
