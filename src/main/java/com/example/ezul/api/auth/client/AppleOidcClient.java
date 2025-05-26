@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 )
 public interface AppleOidcClient {
 
-    @Cacheable(cacheNames = "AppleOICD", cacheManager = "oidcCacheManager")
+    @Cacheable(cacheNames = "AppleOICD", key = "'publicKeys'", cacheManager = "oidcCacheManager")
     @GetMapping("/auth/keys")
     OidcPublicKeyList getApplePublicKeys();
 }

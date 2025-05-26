@@ -8,6 +8,7 @@ import com.example.ezul.core.jwt.JwtProvider;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.security.PublicKey;
 import java.util.Map;
 
+@Slf4j
 @Component("kakao")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -33,15 +35,15 @@ public class KakaoOidcProvider implements OidcProvider {
         try {
             OidcPublicKeyList keys = kakaoOidcClient.getKakaoPublicKeys();
             PublicKey publicKey = publicKeyProvider.generatePublicKey(headers, keys);
-            return jwtProvider.parseClaims(idToken, publicKey).getSubject();
-        } catch (RuntimeException e) {
-//        } catch (SignatureException | InvalidKeyException e) {
+            return jwtProvider.parseOidcClaims(idToken, publicKey).getSubject();
+        } catch (Exception e) {
+            log.error("Failed to parse Kakao OIDC claims, refreshing public keys", e);
             Cache cache = cacheManager.getCache("KakaoOICD");
             if (cache != null) cache.evict("publicKeys");
 
             OidcPublicKeyList newKeys = kakaoOidcClient.getKakaoPublicKeys();
             PublicKey newKey = publicKeyProvider.generatePublicKey(headers, newKeys);
-            return jwtProvider.parseClaims(idToken, newKey).getSubject();
+            return jwtProvider.parseOidcClaims(idToken, newKey).getSubject();
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.example.ezul.api.auth.service.key;
 
+import com.example.ezul.base.enums.ErrorCode;
+import com.example.ezul.core.exception.ApiException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
@@ -17,7 +19,7 @@ public class PublicKeyProvider {
         String alg = tokenHeaders.get("alg");
 
         if (kid == null || alg == null) {
-            throw new RuntimeException("ReturnCode.INTERNAL_SERVER_ERROR");
+            throw new ApiException(ErrorCode.OIDC_PUBLIC_KEY_EMPTY.getCode());
         }
 
         OidcPublicKey matchedKey = publicKeys.getMatchedKey(kid, alg);
@@ -32,7 +34,7 @@ public class PublicKeyProvider {
             RSAPublicKeySpec spec = new RSAPublicKeySpec(new BigInteger(1, nBytes), new BigInteger(1, eBytes));
             return KeyFactory.getInstance("RSA").generatePublic(spec);
         } catch (Exception e) {
-            throw new RuntimeException("ReturnCode.EXTERNAL_SERVER_ERROR");
+            throw new ApiException(ErrorCode.OIDC_PUBLIC_KEY_BUILD_FAIL.getCode());
         }
     }
 }

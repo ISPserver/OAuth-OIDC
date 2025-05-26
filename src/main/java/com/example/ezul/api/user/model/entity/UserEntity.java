@@ -1,4 +1,4 @@
-package com.example.ezul.api.auth.model.entity;
+package com.example.ezul.api.user.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -35,8 +35,13 @@ public class UserEntity {
     @Comment("제공자 식별자 아이디")
     String providerId;
 
-    // loginId, password
+    @Column(length = 30)
+    @Comment("로그인 아이디")
+    String loginId;
 
+    @Column(length = 100)
+    @Comment("비밀번호")
+    String password;
 
     @Column(length = 50)
     @Comment("닉네임")
@@ -51,23 +56,23 @@ public class UserEntity {
     String email;
 
     @Comment("연계정보(CI)")
-    private String ci;
+    String ci;
 
     @Column(length = 30, nullable = false)
     @Comment("시/도")
-    private String province;
+    String province;
 
     @Column(length = 30, nullable = false)
     @Comment("시/군/구")
-    private String city;
+    String city;
 
     @Column(length = 30, nullable = false)
     @Comment("구/동")
-    private String district;
+    String district;
 
     @Column(nullable = false)
     @Comment("경기도민 인증 여부")
-    private boolean residentVerified;
+    boolean residentVerified;
 
     @Column(nullable = false)
     @Comment("활성화 여부")
@@ -80,6 +85,14 @@ public class UserEntity {
     @Column
     @Comment("마지막 로그인 일시")
     LocalDateTime lastLoginAt;
+
+    @Column(nullable = false)
+    @Comment("생성자 아이디")
+    Long creatorId;
+
+    @Column(nullable = false)
+    @Comment("수정자 아이디")
+    Long modifierId;
 
     @CreatedDate
     @Column(nullable = false)
