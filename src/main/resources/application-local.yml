@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   data:
@@ -59,7 +59,6 @@ logging:
   pattern:
     dateformat: yyyy-MM-dd HH:mm:ss.SSSz,Asia/Seoul
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(%5level) %cyan(%logger) - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %5level %logger - %msg%n"
   level:
     root: info
     org:
@@ -67,10 +66,6 @@ logging:
         engine:
           internal:
             StatisticalLoggingSessionEventListener: off
-  logback:
-    rollingpolicy:
-      max-history: 7
-      file-name-pattern: /Users/logs/ezul-auth/app_%d{yyyy-MM-dd}_%i.log
 
 auth:
   naver:

@@ -21,12 +21,11 @@ public class UserContextResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public @Nullable Object resolveArgument(@Nullable MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
-                                            NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) {
+                                            NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory
+    ) {
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
         String userId = request.getHeader("X-User-Id");
-        String role = request.getHeader("X-User-Role");
-
-        return new UserContext(userId, role);
+        return new UserContext(userId);
     }
 }
 
